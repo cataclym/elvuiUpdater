@@ -1,20 +1,16 @@
 #! /bin/bash
 
-trap "rm ElvUI-*.zip" EXIT
+RED='\033[0;31m'
 
-# if $1
-# Check args
+addon_dir=_retail_/Interface/AddOns/
 
-# fi
+if [ -z "$1" ] ||  [ ! -d "$1" ]; then
+    echo -e "${RED}""    "Missing WoW folder argument!""
+    exit 1
+fi
 
-# read -p "Continue (y/n)?" choice
-# case "$choice" in 
-#   y|Y ) echo "yes";;
-#   n|N ) echo "no";;
-#   * ) echo "invalid";;
-# esac
+full_path="$1$addon_dir"
 
-cd /data1/Games/World-of-Warcraft/drive_c/Program\ Files\ \(x86\)/World\ of\ Warcraft/_retail_/Interface/AddOns/ElvUIUpdater/ &&
-    exec deno run --allow-read --allow-write --allow-net --allow-run updateElvUI.ts
+exec deno run --allow-read --allow-write --allow-net --allow-run /opt/ElvUIUpdater/updateElvUI.ts "$full_path"
 
 exit 0

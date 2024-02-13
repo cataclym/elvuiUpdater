@@ -1,5 +1,10 @@
 import * as mod from "https://deno.land/std@0.201.0/streams/write_all.ts";
-import * as path from "https://deno.land/std@0.57.0/path/mod.ts";
+
+let path = Deno.args[0];
+
+if (!path) throw new Error("Missing WoW Directory!");
+
+path = path.replace(/Warcraft_retail/, "Warcraft/_retail");
 
 // DL
 const r = await fetch("https://api.tukui.org/v1/addon/elvui");
@@ -18,8 +23,8 @@ const file = await Deno.create(name);
 await mod.writeAll(file, data);
 
 // Unzip
-const command = new Deno.Command("./unzipToAddons.sh", {
-  args: [name],
+const command = new Deno.Command("unzip", {
+  args: ["-o", name, "-d", path],
   stdout: "piped",
   stderr: "piped",
 });
@@ -29,10 +34,21 @@ const process = command.spawn();
 const { success, code, stderr, stdout } = await process.output();
 
 if (!success) {
-  throw new Error(`$Command failed: code ${code}, message: ${stderr}`);
-} 
-else {
-  console.log(stdout);
+  rmDotZip();
+  throw new Error(`$Command failed: code ${code}, message: ${new TextDecoder().decode(stderr)}`);
+} else {
+  console.log(new TextDecoder().decode(stdout));
 }
 
+rmDotZip();
+
 export {};
+
+function rmDotZip() {
+  // Remove .zip archive when done
+  new Deno.Command("rm", {
+    args: [name],
+    stdout: "piped",
+    stderr: "piped",
+  }).spawn();
+}
