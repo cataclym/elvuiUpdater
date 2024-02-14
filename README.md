@@ -5,11 +5,11 @@ A tool for updating WoW on Linux systems
         
 ##### Download
 
-    curl -O elvuiUpdater-1.0.0.tar.gz
+    curl https://github.com/cataclym/elvuiUpdater/archive/refs/tags/v1.0.0.tar.gz -Lo ElvUIUpdater.tar.gz
 
 ##### Extract to /opt/ElvUIUpdater and symlink to /bin/elvuiupdate
 
-    sudo tar xvzf ./elvuiUpdater-1.0.0.tar.gz -C /opt/ElvUIUpdater && sudo ln -s /opt/ElvUIUpdater/elvUIUpdate.sh /bin/elvuiupdate
+    sudo tar xvzf ./ElvUIUpdater.tar.gz -C /opt/ElvUIUpdater && sudo ln -s /opt/ElvUIUpdater/elvUIUpdate.sh /bin/elvuiupdate
 
 ### How to use
 
