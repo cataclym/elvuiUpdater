@@ -1,5 +1,5 @@
 ## ElvUIUpdater 
-A tool for updating WoW on Linux systems
+A tool for updating ElvUI addon for WoW, on Linux systems
 
 ### Install
         
